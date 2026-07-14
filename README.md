@@ -51,7 +51,7 @@ For import formats, saved decks, settings, unresolved cards, and report interpre
 
 Requirements:
 
-- Node.js `^22.18.0` or `>=24.12.0`
+- Node.js 24.x (24.15.0 or newer recommended)
 - npm
 
 Common commands:
