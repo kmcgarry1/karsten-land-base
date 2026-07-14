@@ -4,7 +4,7 @@ Last reviewed: 13 July 2026
 
 ## System and trust boundaries
 
-The product is a static Vue application deployed through Netlify. User-supplied deck text and all `localStorage` values are untrusted. Scryfall API responses and image URLs cross an external-service boundary. Simulation messages cross a Web Worker boundary. npm packages, GitHub Actions, and Netlify form the software supply chain.
+The product is a static Vue application deployed through Vercel, with Netlify configuration retained as an alternative. User-supplied deck text and all `localStorage` values are untrusted. Scryfall API responses and image URLs cross an external-service boundary. Simulation messages cross a Web Worker boundary. npm packages, GitHub Actions, and the deployment host form the software supply chain.
 
 There are no accounts, first-party backend, payments, cookies, privileged administrative functions, or application secrets.
 
@@ -25,13 +25,12 @@ There are no accounts, first-party backend, payments, cookies, privileged admini
 | Poisoned browser storage | Incorrect analysis or crash | Schema validation, field allowlisting, malformed-key removal, safe defaults |
 | Scryfall failure, redirect, or malformed response | Availability loss or incorrect results | Timeout, origin/content-type checks, bounded retries, degraded mode |
 | Compromised npm or CI dependency | Build compromise | Lockfile installs, Dependabot, dependency review, npm audit, CodeQL, SHA-pinned Actions, SBOM |
-| Deployment-header regression | Increased XSS/clickjacking exposure | Committed Netlify headers and deployed-header verification |
-| Repository or hosting account takeover | Malicious release | MFA, least privilege, protected branch, required checks, Netlify rollback |
+| Deployment-header regression | Increased XSS/clickjacking exposure | Committed Vercel/Netlify headers and deployed-header verification |
+| Repository or hosting account takeover | Malicious release | MFA, least privilege, protected branch, required checks, immutable deployment rollback |
 
 ## Out of scope and accepted boundaries
 
 - A malicious browser extension, compromised device, or another script already executing in the same origin can read local storage.
 - Scryfall observes network metadata and requested card/image names.
-- Availability ultimately depends on the browser, Netlify, GitHub, npm, and Scryfall.
+- Availability ultimately depends on the browser, deployment host, GitHub, npm, and Scryfall.
 - The model is reviewed for material architecture changes and at least annually.
-

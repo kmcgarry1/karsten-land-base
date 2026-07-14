@@ -13,5 +13,4 @@ The application is account-free and does not send first-party telemetry.
 
 Browser storage is not encrypted and must not be treated as a confidential vault. **Clear all local data** removes every application-owned `clf_` key while preserving unrelated origin storage. Clearing browser site data has the same effect.
 
-No application data is sold, used for advertising, or deliberately logged by the frontend. Netlify, GitHub, npm, and Scryfall process normal infrastructure metadata under their own terms.
-
+No application data is sold, used for advertising, or deliberately logged by the frontend. Vercel, GitHub, npm, and Scryfall process normal infrastructure metadata under their own terms.
