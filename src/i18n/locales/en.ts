@@ -29,19 +29,25 @@ export const en = {
     finish: "Save setup",
     welcome: {
       title: "Set up analysis around your deck-building goals",
-      firstRun: "Before importing your first deck, choose how the app should judge mana consistency. This takes about a minute and can be changed later.",
-      reopen: "Review the main analysis choices without changing anything until you save at the end.",
+      firstRun:
+        "Before importing your first deck, choose how the app should judge mana consistency. This takes about a minute and can be changed later.",
+      reopen:
+        "Review the main analysis choices without changing anything until you save at the end.",
       note: "Each step explains one decision. Recommended choices work well for most Commander decks.",
     },
     mode: {
       title: "How should analysis run?",
-      description: "Choose a fast source-count estimate or a slower simulation of opening hands and draws.",
-      karsten: "Fast, deterministic source targets and probability estimates. Best for everyday deck tuning.",
-      exact: "Monte Carlo sampling with a simplified sequencing model. Slower and still subject to model limitations.",
+      description:
+        "Choose a fast source-count estimate or a slower simulation of opening hands and draws.",
+      karsten:
+        "Fast, deterministic source targets and probability estimates. Best for everyday deck tuning.",
+      exact:
+        "Monte Carlo sampling with a simplified sequencing model. Slower and still subject to model limitations.",
     },
     threshold: {
       title: "How consistent should a spell be?",
-      description: "A target passes when its modeled chance of meeting coloured requirements reaches this goal.",
+      description:
+        "A target passes when its modeled chance of meeting coloured requirements reaches this goal.",
       options: {
         relaxed: "Relaxed",
         recommended: "Recommended",
@@ -50,22 +56,28 @@ export const en = {
     },
     assumptions: {
       title: "How cautiously should sources be counted?",
-      description: "This profile controls tapped lands, MDFCs, and opponent-dependent mana when the exact game state is unknown.",
+      description:
+        "This profile controls tapped lands, MDFCs, and opponent-dependent mana when the exact game state is unknown.",
       recommended: "Recommended",
-      recommendedHelp: "Use the app's balanced defaults: taplands from turn two, MDFCs, Exotic Orchard at ¾, and Fellwar Stone at ½.",
+      recommendedHelp:
+        "Use the app's balanced defaults: taplands from turn two, MDFCs, Exotic Orchard at ¾, and Fellwar Stone at ½.",
       strict: "Strict",
-      strictHelp: "Do not count those conditional sources. Results are more conservative and may understate real games.",
+      strictHelp:
+        "Do not count those conditional sources. Results are more conservative and may understate real games.",
       custom: "Keep current custom settings",
       customHelp: "Preserve the individual source toggles already configured on the Settings page.",
     },
     pod: {
       title: "Which colours are known in your pod?",
-      description: "Known opponent colours improve how Exotic Orchard and Fellwar Stone are valued.",
-      optional: "Leave every colour unselected when your regular opponents or their decks are unknown.",
+      description:
+        "Known opponent colours improve how Exotic Orchard and Fellwar Stone are valued.",
+      optional:
+        "Leave every colour unselected when your regular opponents or their decks are unknown.",
     },
     iterations: {
       title: "How much simulation work should run?",
-      description: "More iterations reduce sampling noise but take longer. They do not remove the simulation's model limitations.",
+      description:
+        "More iterations reduce sampling noise but take longer. They do not remove the simulation's model limitations.",
       options: {
         "10000": "Fast, rough",
         "50000": "Recommended",
@@ -75,7 +87,8 @@ export const en = {
     },
     review: {
       title: "Your analysis setup is ready",
-      description: "Review the choices below. Saving applies them together and returns you to deck import.",
+      description:
+        "Review the choices below. Saving applies them together and returns you to deck import.",
       unknownPod: "Unknown",
     },
   },
@@ -90,6 +103,8 @@ export const en = {
   },
   common: {
     back: "Back",
+    close: "Close",
+    done: "Done",
     pass: "Pass",
     fail: "Fail",
     none: "None",
@@ -109,7 +124,8 @@ export const en = {
   },
   import: {
     title: "Commander Mana Base",
-    intro: "Import a decklist, configure assumptions, then run analysis to check cast-on-curve consistency.",
+    intro:
+      "Import a decklist, configure assumptions, then run analysis to check cast-on-curve consistency.",
     bestFlow: "Best flow: paste decklist → choose mode/threshold → click “Analyse deck”.",
     decklist: "Decklist",
     decklistHelp: "Paste a deck export from MTGO, Moxfield, Archidekt, or CubeCobra.",
@@ -150,7 +166,8 @@ export const en = {
     running: "Running analysis...",
     clearCache: "Clear cache and retry",
     chooseCommander: "Choose a commander in the review panel before running analysis.",
-    degraded: "Degraded analysis can use known lands, rocks, and cached cards. Unknown cards will not contribute mana sources or spell targets until Scryfall resolves them.",
+    degraded:
+      "Degraded analysis can use known lands, rocks, and cached cards. Unknown cards will not contribute mana sources or spell targets until Scryfall resolves them.",
     savedDecks: "Saved decks",
     saveDeck: "Save deck",
     noSavedDeck: "No saved deck selected",
@@ -183,7 +200,8 @@ export const en = {
     continueDegraded: "or continue in degraded mode.",
     dataReady: "Card data is ready.",
     runFromImport: "Run analysis from Import",
-    degraded: "This report was produced with unresolved cards treated as unknown. Unresolved: {count}.",
+    degraded:
+      "This report was produced with unresolved cards treated as unknown. Unresolved: {count}.",
     runningSimulation: "Running Monte Carlo simulation… {progress}%",
     targetsPassing: "Targets passing",
     aboveThreshold: "{rate}% above threshold",
@@ -212,6 +230,30 @@ export const en = {
     abandonConfirm: "Abandon this deck and clear all imported card data?",
     clipboardUnavailable: "Clipboard is unavailable in this browser context.",
   },
+  share: {
+    action: "Share",
+    title: "Share analysis",
+    subtitle: "Create a link with your current report so others can view it in read-only mode.",
+    generating: "Generating share link...",
+    linkField: "Share link",
+    copyLink: "Copy link",
+    openLink: "Open link",
+    privacyNote:
+      "Links include encoded deck and report data for portability. Share only with people you trust.",
+    copied: "Share link copied.",
+    copyFailed: "Could not copy the share link in this browser context.",
+    unavailable: "Generate a report before sharing.",
+    tooLarge: "This analysis is too large to fit in a shareable link.",
+    invalid: "This share link is invalid or corrupted.",
+    expired: "This share link has expired.",
+    readOnlyBanner: "Viewing shared results in read-only mode.",
+    importedFallback: "Deck and settings loaded from the share link.",
+    openImport: "Open import flow",
+    shareCreatedAt: "Generated {date}",
+    shareExpiresAt: "Expires {date}",
+    fallbackReady: "Load deck + settings",
+    fallbackMissing: "No fallback deck data included.",
+  },
   settings: {
     title: "Settings",
     intro: "Tune the analysis mode, probability threshold, and opponent assumptions.",
@@ -224,7 +266,8 @@ export const en = {
     orchard: "Exotic Orchard at ¾ weight",
     fellwar: "Fellwar Stone at ½ weight",
     podColours: "Known pod colours",
-    podDescription: "Select colours your opponents are known to play. Improves accuracy for opponent-dependent sources.",
+    podDescription:
+      "Select colours your opponents are known to play. Improves accuracy for opponent-dependent sources.",
     colours: { W: "White", U: "Blue", B: "Black", R: "Red", G: "Green" },
     iterations: "Simulation iterations",
     iterationsDescription: "Higher counts reduce sampling noise but take longer to compute.",
@@ -239,7 +282,8 @@ export const en = {
       title: "Local data",
       disclosure: "Decks stay in this browser. Card names and image requests are sent to Scryfall.",
       clear: "Clear all local data",
-      confirm: "Clear saved decks, settings, preferences, and cached card data? This cannot be undone.",
+      confirm:
+        "Clear saved decks, settings, preferences, and cached card data? This cannot be undone.",
     },
   },
 };
