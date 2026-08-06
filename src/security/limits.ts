@@ -15,6 +15,9 @@ export const SECURITY_LIMITS = Object.freeze({
   simulationTimeoutMs: 60_000,
   remoteTextCharacters: 20_000,
   workerErrorCharacters: 500,
+  sharePayloadEncodedCharacters: 12_000,
+  sharePayloadDecodedCharacters: 80_000,
+  sharePayloadMaxAgeMs: 1000 * 60 * 60 * 24 * 30,
 });
 
 export function isDeckTextWithinLimits(text: string): boolean {
@@ -30,7 +33,11 @@ export function simulationLimitError(iterations: number, targetCount: number): s
   ) {
     return `Simulation iterations must be between ${SECURITY_LIMITS.simulationIterationsMin} and ${SECURITY_LIMITS.simulationIterationsMax}.`;
   }
-  if (!Number.isInteger(targetCount) || targetCount < 1 || targetCount > SECURITY_LIMITS.simulationTargets) {
+  if (
+    !Number.isInteger(targetCount) ||
+    targetCount < 1 ||
+    targetCount > SECURITY_LIMITS.simulationTargets
+  ) {
     return `Simulation targets must be between 1 and ${SECURITY_LIMITS.simulationTargets}.`;
   }
   if (iterations * targetCount > SECURITY_LIMITS.simulationWorkBudget) {

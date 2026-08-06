@@ -12,7 +12,12 @@ import { shouldShowOnboarding } from "./onboarding";
 const route = useRoute();
 const deckStore = useDeckStore();
 const { t } = useI18n();
-const isAnalysis = computed(() => route.name === "analysis" || route.name === "analysis-cards");
+const isAnalysis = computed(() => {
+  const routeName = String(route.name ?? "");
+  return (
+    routeName === "analysis" || routeName === "analysis-cards" || routeName === "analysis-shared"
+  );
+});
 const setupOpen = ref(shouldShowOnboarding());
 const setupFirstRun = ref(setupOpen.value);
 
@@ -77,11 +82,7 @@ function closeSetup() {
           >
             {{ t("nav.import") }}
           </RouterLink>
-          <RouterLink
-            :to="{ name: 'analysis' }"
-            class="nav-link"
-            :class="{ active: isAnalysis }"
-          >
+          <RouterLink :to="{ name: 'analysis' }" class="nav-link" :class="{ active: isAnalysis }">
             {{ t("nav.analysis") }}
           </RouterLink>
           <RouterLink
@@ -93,7 +94,12 @@ function closeSetup() {
           </RouterLink>
         </nav>
         <div class="header-utilities">
-          <button type="button" class="setup-trigger" :aria-label="t('wizard.open')" @click="openSetup">
+          <button
+            type="button"
+            class="setup-trigger"
+            :aria-label="t('wizard.open')"
+            @click="openSetup"
+          >
             <SlidersHorizontal :size="15" aria-hidden="true" />
             <span>{{ t("wizard.setup") }}</span>
           </button>

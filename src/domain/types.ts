@@ -223,6 +223,21 @@ export interface AnalysisReport {
   timestamp: number;
 }
 
+export interface ShareFallbackData {
+  deckName: string;
+  rawText: string;
+  settings: AnalysisSettings;
+  targets: SpellTarget[];
+}
+
+export interface SharedAnalysisPayload {
+  schemaVersion: 1;
+  createdAt: number;
+  expiresAt: number;
+  report: AnalysisReport;
+  fallback: ShareFallbackData;
+}
+
 export interface Recommendation {
   id: string;
   type: "add-land" | "swap-for-better-dual" | "lower-requirement" | "add-rock" | "info";
