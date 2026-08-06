@@ -159,9 +159,7 @@ describe("Analysis share actions", () => {
 
     expect(wrapper.get('[data-test="share-dialog"]').attributes("data-open")).toBe("false");
 
-    const shareButton = wrapper
-      .findAll("button")
-      .find((button) => button.text().includes("Share"));
+    const shareButton = wrapper.findAll("button").find((button) => button.text().includes("Share"));
     expect(shareButton).toBeTruthy();
     await shareButton!.trigger("click");
 
@@ -176,9 +174,7 @@ describe("Analysis share actions", () => {
 
     expect(wrapper.get('[data-test="share-dialog"]').attributes("data-open")).toBe("false");
 
-    const shareButton = wrapper
-      .findAll("button")
-      .find((button) => button.text().includes("Share"));
+    const shareButton = wrapper.findAll("button").find((button) => button.text().includes("Share"));
     expect(shareButton).toBeTruthy();
     await shareButton!.trigger("click");
 
