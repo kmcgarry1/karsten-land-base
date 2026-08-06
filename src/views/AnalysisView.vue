@@ -8,14 +8,20 @@ import SourceBreakdownTable from "../components/analysis/SourceBreakdownTable.vu
 import KeySpellEditor from "../components/analysis/KeySpellEditor.vue";
 import RecommendationPanel from "../components/analysis/RecommendationPanel.vue";
 import AssumptionWarnings from "../components/analysis/AssumptionWarnings.vue";
-import { Zap, Dices, Check, X, Minus, ArrowLeft, Images } from "lucide-vue-next";
+import ShareLinkDialog from "../components/shared/ShareLinkDialog.vue";
+import { Zap, Dices, Check, X, Minus, ArrowLeft, Images, Link2 } from "lucide-vue-next";
 import { useDeckStore } from "../stores/deck";
 import { useAnalysisStore } from "../stores/analysis";
 import { useCardDataStore } from "../stores/cardData";
 import { useSettingsStore } from "../stores/settings";
 import { explainSourcesForTarget } from "../engines/karsten";
 import { COLOUR_CONFIG } from "../domain/constants";
-import type { MtgColour, SourceContribution, SourceExplanation, SpellAnalysisResult } from "../domain/types";
+import type {
+  MtgColour,
+  SourceContribution,
+  SourceExplanation,
+  SpellAnalysisResult,
+} from "../domain/types";
 
 const router = useRouter();
 const { t } = useI18n();
@@ -33,6 +39,7 @@ const cardDataReady = computed(
 const totalTargets = computed(() => report.value?.spellResults.length ?? 0);
 const passingTargets = computed(() => totalTargets.value - analysisStore.failingTargets.length);
 const expandedTargets = ref<Set<string>>(new Set());
+const shareDialogOpen = ref(false);
 
 const summaryCards = computed(() => {
   if (!report.value) return [];
@@ -122,7 +129,9 @@ function colourEntries(explanation: SourceExplanation | null) {
   >;
 }
 
-function contributionGroups(explanation: SourceExplanation | null): Array<[string, SourceContribution[]]> {
+function contributionGroups(
+  explanation: SourceExplanation | null,
+): Array<[string, SourceContribution[]]> {
   const groups = explanation?.contributions;
   if (!groups) return [];
   const entries: Array<[string, SourceContribution[]]> = [
@@ -185,10 +194,14 @@ async function copyReportSummary() {
           <div class="deck-meta">
             <div class="deck-name">{{ deckStore.deckName || t("analysis.untitled") }}</div>
             <div v-if="commander" class="commander-info">
-              <span class="cmd-label">{{ commander.count > 1 ? t("common.commanders") : t("common.commander") }}:</span>
+              <span class="cmd-label"
+                >{{ commander.count > 1 ? t("common.commanders") : t("common.commander") }}:</span
+              >
               <span class="cmd-names">{{ commander.names.join(", ") }}</span>
               <ColourIdentityBadge :colours="commander.colourIdentity" size="sm" />
-              <span class="library-size">{{ t("common.library") }}: {{ commander.librarySize }}</span>
+              <span class="library-size"
+                >{{ t("common.library") }}: {{ commander.librarySize }}</span
+              >
             </div>
           </div>
         </div>
@@ -199,7 +212,21 @@ async function copyReportSummary() {
             <Images :size="16" />
             {{ t("analysis.cardView") }}
           </router-link>
-          <button type="button" class="btn btn-tonal" :disabled="!report" @click="copyReportSummary">
+          <button
+            type="button"
+            class="btn btn-tonal"
+            :disabled="!report"
+            @click="shareDialogOpen = true"
+          >
+            <Link2 :size="16" />
+            {{ t("share.action") }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-tonal"
+            :disabled="!report"
+            @click="copyReportSummary"
+          >
             {{ t("analysis.copySummary") }}
           </button>
           <button type="button" class="btn btn-ghost" @click="abandonAnalysis">
@@ -221,7 +248,8 @@ async function copyReportSummary() {
       v-if="!report && !analysisStore.isAnalysing && !hasParsedDeck"
       class="alert alert-info mb-4"
     >
-      {{ t("analysis.noDeck") }} <router-link class="inline-action" to="/">{{ t("analysis.importDeck") }}</router-link>
+      {{ t("analysis.noDeck") }}
+      <router-link class="inline-action" to="/">{{ t("analysis.importDeck") }}</router-link>
       {{ t("analysis.getStarted") }}
     </div>
 
@@ -235,7 +263,9 @@ async function copyReportSummary() {
     </div>
 
     <div v-else-if="!report && !analysisStore.isAnalysing" class="alert alert-info mb-4">
-      {{ t("analysis.dataReady") }} <router-link class="inline-action" to="/">{{ t("analysis.runFromImport") }}</router-link>.
+      {{ t("analysis.dataReady") }}
+      <router-link class="inline-action" to="/">{{ t("analysis.runFromImport") }}</router-link
+      >.
     </div>
 
     <div v-if="analysisStore.analysisError" class="alert alert-error mb-4">
@@ -248,7 +278,11 @@ async function copyReportSummary() {
 
     <div v-if="analysisStore.isAnalysing && mode === 'exact'" class="card card-pad mb-4">
       <div class="pb-2 text-sm text-[var(--text-muted)]">
-        {{ t("analysis.runningSimulation", { progress: Math.round(analysisStore.simulationProgress * 100) }) }}
+        {{
+          t("analysis.runningSimulation", {
+            progress: Math.round(analysisStore.simulationProgress * 100),
+          })
+        }}
       </div>
       <div class="progress-track">
         <div
@@ -346,14 +380,24 @@ async function copyReportSummary() {
                   <Check v-if="result.status === 'pass'" :size="11" />
                   <X v-else-if="result.status === 'fail'" :size="11" />
                   <Minus v-else :size="11" />
-                  {{ result.status === "pass" ? t("common.pass") : result.status === "fail" ? t("common.fail") : "…" }}
+                  {{
+                    result.status === "pass"
+                      ? t("common.pass")
+                      : result.status === "fail"
+                        ? t("common.fail")
+                        : "…"
+                  }}
                 </span>
                 <button
                   type="button"
                   class="inline-action details-action"
                   @click="toggleTargetDetails(result.target.id)"
                 >
-                  {{ expandedTargets.has(result.target.id) ? t("analysis.hideDetails") : t("analysis.details") }}
+                  {{
+                    expandedTargets.has(result.target.id)
+                      ? t("analysis.hideDetails")
+                      : t("analysis.details")
+                  }}
                 </button>
                 <div v-if="expandedTargets.has(result.target.id)" class="target-details">
                   <div class="target-detail-grid">
@@ -365,9 +409,16 @@ async function copyReportSummary() {
                         class="target-detail-line"
                       >
                         <span>{{ COLOUR_CONFIG[colour].name }}</span>
-                        <strong>{{ summary.totalEffective.toFixed(1) }} / {{ summary.neededSources }}</strong>
+                        <strong
+                          >{{ summary.totalEffective.toFixed(1) }} /
+                          {{ summary.neededSources }}</strong
+                        >
                         <span :class="summary.deficit > 0 ? 'prob-fail' : 'prob-pass'">
-                          {{ summary.deficit > 0 ? `-${Math.ceil(summary.deficit)}` : t("common.pass") }}
+                          {{
+                            summary.deficit > 0
+                              ? `-${Math.ceil(summary.deficit)}`
+                              : t("common.pass")
+                          }}
                         </span>
                       </div>
                     </div>
@@ -443,6 +494,8 @@ async function copyReportSummary() {
         </section>
       </div>
     </template>
+
+    <ShareLinkDialog :open="shareDialogOpen" @close="shareDialogOpen = false" />
   </div>
 </template>
 

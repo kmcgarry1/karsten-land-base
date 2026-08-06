@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import {
   ArrowLeft,
   BarChart3,
@@ -9,11 +10,13 @@ import {
   Dices,
   Grid2X2,
   ImageOff,
+  Link2,
   List,
   RefreshCw,
   Zap,
 } from "lucide-vue-next";
 import ColourIdentityBadge from "../components/shared/ColourIdentityBadge.vue";
+import ShareLinkDialog from "../components/shared/ShareLinkDialog.vue";
 import { COLOUR_CONFIG } from "../domain/constants";
 import type { CardAnalysisRow, MtgColour, SourceContribution } from "../domain/types";
 import { useAnalysisStore } from "../stores/analysis";
@@ -25,6 +28,7 @@ type SortMode = "fail-first" | "lowest-probability" | "mana-value" | "name" | "c
 type StatusFilter = "all" | "pass" | "fail" | "unscored";
 
 const router = useRouter();
+const { t } = useI18n();
 const deckStore = useDeckStore();
 const analysisStore = useAnalysisStore();
 const cardDataStore = useCardDataStore();
@@ -38,6 +42,7 @@ const exactOnly = ref(false);
 const mvMin = ref(0);
 const mvMax = ref(10);
 const expandedRows = ref<Set<string>>(new Set());
+const shareDialogOpen = ref(false);
 
 const report = computed(() => analysisStore.report);
 const commander = computed(() => deckStore.commanderInfo);
@@ -99,8 +104,10 @@ onUnmounted(() => {
 
 function compareRows(a: CardAnalysisRow, b: CardAnalysisRow): number {
   if (sortMode.value === "name") return a.card.name.localeCompare(b.card.name);
-  if (sortMode.value === "mana-value") return a.card.cmc - b.card.cmc || a.card.name.localeCompare(b.card.name);
-  if (sortMode.value === "colour") return pipLabel(a).localeCompare(pipLabel(b)) || a.card.name.localeCompare(b.card.name);
+  if (sortMode.value === "mana-value")
+    return a.card.cmc - b.card.cmc || a.card.name.localeCompare(b.card.name);
+  if (sortMode.value === "colour")
+    return pipLabel(a).localeCompare(pipLabel(b)) || a.card.name.localeCompare(b.card.name);
   if (sortMode.value === "lowest-probability") return probability(a) - probability(b);
 
   const statusRank = (row: CardAnalysisRow) =>
@@ -203,6 +210,15 @@ function contributionGroups(row: CardAnalysisRow): Array<[string, SourceContribu
           </RouterLink>
           <button
             type="button"
+            class="btn btn-tonal"
+            :disabled="!report"
+            @click="shareDialogOpen = true"
+          >
+            <Link2 :size="16" />
+            {{ t("share.action") }}
+          </button>
+          <button
+            type="button"
             class="btn btn-primary"
             :disabled="analysisStore.isAnalysing"
             @click="reanalyse"
@@ -212,7 +228,6 @@ function contributionGroups(row: CardAnalysisRow): Array<[string, SourceContribu
           </button>
         </div>
       </div>
-
     </section>
 
     <div v-if="!report && !analysisStore.isAnalysing && !hasParsedDeck" class="alert alert-info">
@@ -230,7 +245,8 @@ function contributionGroups(row: CardAnalysisRow): Array<[string, SourceContribu
     </div>
 
     <div v-else-if="!report && !analysisStore.isAnalysing" class="alert alert-info">
-      Card data is ready. <RouterLink class="inline-action" to="/">Run analysis from Import</RouterLink>.
+      Card data is ready.
+      <RouterLink class="inline-action" to="/">Run analysis from Import</RouterLink>.
     </div>
 
     <div v-if="analysisStore.analysisError" class="alert alert-error">
@@ -286,11 +302,7 @@ function contributionGroups(row: CardAnalysisRow): Array<[string, SourceContribu
             <List :size="15" />
             Table
           </button>
-          <button
-            type="button"
-            :class="{ active: viewMode === 'grid' }"
-            @click="viewMode = 'grid'"
-          >
+          <button type="button" :class="{ active: viewMode === 'grid' }" @click="viewMode = 'grid'">
             <Grid2X2 :size="15" />
             Grid
           </button>
@@ -419,7 +431,11 @@ function contributionGroups(row: CardAnalysisRow): Array<[string, SourceContribu
                             {{ summary?.totalEffective.toFixed(1) }} / {{ summary?.neededSources }}
                           </strong>
                           <span :class="(summary?.deficit ?? 0) > 0 ? 'score-fail' : 'score-pass'">
-                            {{ (summary?.deficit ?? 0) > 0 ? `-${Math.ceil(summary?.deficit ?? 0)}` : "Pass" }}
+                            {{
+                              (summary?.deficit ?? 0) > 0
+                                ? `-${Math.ceil(summary?.deficit ?? 0)}`
+                                : "Pass"
+                            }}
                           </span>
                         </div>
                       </div>
@@ -448,7 +464,11 @@ function contributionGroups(row: CardAnalysisRow): Array<[string, SourceContribu
         </table>
       </section>
 
-      <section v-else-if="filteredRows.length > 0" class="card-grid" aria-label="Card probability results">
+      <section
+        v-else-if="filteredRows.length > 0"
+        class="card-grid"
+        aria-label="Card probability results"
+      >
         <article
           v-for="row in filteredRows"
           :key="row.id"
@@ -479,7 +499,8 @@ function contributionGroups(row: CardAnalysisRow): Array<[string, SourceContribu
             </div>
 
             <div v-if="row.target" class="target-line">
-              Turn {{ row.target.targetTurn }} · MV {{ row.target.totalManaValue }} · {{ pipLabel(row) }}
+              Turn {{ row.target.targetTurn }} · MV {{ row.target.totalManaValue }} ·
+              {{ pipLabel(row) }}
             </div>
             <div v-else class="target-line">No castable coloured mana cost detected.</div>
 
@@ -519,6 +540,8 @@ function contributionGroups(row: CardAnalysisRow): Array<[string, SourceContribu
 
       <div v-else class="card card-pad empty-state">No cards match the current filters.</div>
     </template>
+
+    <ShareLinkDialog :open="shareDialogOpen" @close="shareDialogOpen = false" />
   </div>
 </template>
 

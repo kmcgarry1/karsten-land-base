@@ -7,7 +7,8 @@ export const es: typeof en = {
     subtitle: "Importa, ajusta y prueba tu base de maná",
     primaryNavigation: "Navegación principal",
     footerPrefix: "Basado en el artículo de Frank Karsten",
-    footerTitle: "¿Cuántas fuentes necesitas para lanzar tus hechizos de forma consistente? Actualización de 2022",
+    footerTitle:
+      "¿Cuántas fuentes necesitas para lanzar tus hechizos de forma consistente? Actualización de 2022",
   },
   nav: { import: "Importar", analysis: "Análisis", settings: "Ajustes" },
   language: { label: "Idioma", select: "Seleccionar idioma" },
@@ -31,19 +32,24 @@ export const es: typeof en = {
     finish: "Guardar configuración",
     welcome: {
       title: "Configura el análisis según tus objetivos",
-      firstRun: "Antes de importar tu primer mazo, elige cómo debe evaluar la aplicación la consistencia del maná. Tarda aproximadamente un minuto y podrás cambiarlo después.",
+      firstRun:
+        "Antes de importar tu primer mazo, elige cómo debe evaluar la aplicación la consistencia del maná. Tarda aproximadamente un minuto y podrás cambiarlo después.",
       reopen: "Revisa las opciones principales sin cambiar nada hasta que guardes al final.",
       note: "Cada paso explica una decisión. Las opciones recomendadas funcionan bien para la mayoría de mazos de Commander.",
     },
     mode: {
       title: "¿Cómo debe ejecutarse el análisis?",
-      description: "Elige una estimación rápida de fuentes o una simulación más lenta de manos iniciales y robos.",
-      karsten: "Objetivos de fuentes y probabilidades rápidos y deterministas. Ideal para ajustar mazos habitualmente.",
-      exact: "Muestreo Montecarlo con un modelo de secuenciación simplificado. Es más lento y conserva limitaciones.",
+      description:
+        "Elige una estimación rápida de fuentes o una simulación más lenta de manos iniciales y robos.",
+      karsten:
+        "Objetivos de fuentes y probabilidades rápidos y deterministas. Ideal para ajustar mazos habitualmente.",
+      exact:
+        "Muestreo Montecarlo con un modelo de secuenciación simplificado. Es más lento y conserva limitaciones.",
     },
     threshold: {
       title: "¿Qué consistencia debe tener un hechizo?",
-      description: "Un objetivo se aprueba cuando la probabilidad modelada de cumplir sus requisitos de color alcanza esta meta.",
+      description:
+        "Un objetivo se aprueba cuando la probabilidad modelada de cumplir sus requisitos de color alcanza esta meta.",
       options: {
         relaxed: "Flexible",
         recommended: "Recomendado",
@@ -52,13 +58,17 @@ export const es: typeof en = {
     },
     assumptions: {
       title: "¿Con qué cautela deben contarse las fuentes?",
-      description: "Este perfil controla tierras giradas, MDFC y maná dependiente del oponente cuando se desconoce el estado exacto.",
+      description:
+        "Este perfil controla tierras giradas, MDFC y maná dependiente del oponente cuando se desconoce el estado exacto.",
       recommended: "Recomendado",
-      recommendedHelp: "Usa los valores equilibrados: tierras giradas desde el turno dos, MDFC, Exotic Orchard a ¾ y Fellwar Stone a ½.",
+      recommendedHelp:
+        "Usa los valores equilibrados: tierras giradas desde el turno dos, MDFC, Exotic Orchard a ¾ y Fellwar Stone a ½.",
       strict: "Estricto",
-      strictHelp: "No cuenta esas fuentes condicionales. El resultado es más conservador y puede infravalorar partidas reales.",
+      strictHelp:
+        "No cuenta esas fuentes condicionales. El resultado es más conservador y puede infravalorar partidas reales.",
       custom: "Conservar ajustes personalizados",
-      customHelp: "Mantiene las opciones individuales de fuentes configuradas en la página de Ajustes.",
+      customHelp:
+        "Mantiene las opciones individuales de fuentes configuradas en la página de Ajustes.",
     },
     pod: {
       title: "¿Qué colores conoces en tu mesa?",
@@ -67,7 +77,8 @@ export const es: typeof en = {
     },
     iterations: {
       title: "¿Cuánto trabajo debe realizar la simulación?",
-      description: "Más iteraciones reducen el ruido de muestreo, pero tardan más. No eliminan las limitaciones del modelo.",
+      description:
+        "Más iteraciones reducen el ruido de muestreo, pero tardan más. No eliminan las limitaciones del modelo.",
       options: {
         "10000": "Rápido, aproximado",
         "50000": "Recomendado",
@@ -77,7 +88,8 @@ export const es: typeof en = {
     },
     review: {
       title: "La configuración está lista",
-      description: "Revisa las opciones. Al guardar se aplicarán juntas y volverás a la importación del mazo.",
+      description:
+        "Revisa las opciones. Al guardar se aplicarán juntas y volverás a la importación del mazo.",
       unknownPod: "Desconocida",
     },
   },
@@ -92,6 +104,8 @@ export const es: typeof en = {
   },
   common: {
     back: "Volver",
+    close: "Cerrar",
+    done: "Listo",
     pass: "Aprobado",
     fail: "Fallido",
     none: "Ninguno",
@@ -111,7 +125,8 @@ export const es: typeof en = {
   },
   import: {
     title: "Base de maná de Commander",
-    intro: "Importa una lista, configura los supuestos y analiza la consistencia para lanzar en curva.",
+    intro:
+      "Importa una lista, configura los supuestos y analiza la consistencia para lanzar en curva.",
     bestFlow: "Flujo recomendado: pega la lista → elige modo/umbral → pulsa «Analizar mazo».",
     decklist: "Lista del mazo",
     decklistHelp: "Pega una exportación de MTGO, Moxfield, Archidekt o CubeCobra.",
@@ -134,7 +149,8 @@ export const es: typeof en = {
       eyebrow: "Resolviendo el mazo",
       title: "Cargando información de cartas",
       cache: "Buscando registros recientes en la caché de este navegador.",
-      fetch: "Obteniendo de Scryfall los datos que faltan. Las listas grandes pueden tardar un momento.",
+      fetch:
+        "Obteniendo de Scryfall los datos que faltan. Las listas grandes pueden tardar un momento.",
       classify: "Clasificando fuentes de maná y preparando el mazo para el análisis.",
       prepare: "Preparando la información de cartas para el análisis.",
       note: "Mantén esta página abierta mientras se prepara el mazo.",
@@ -152,13 +168,15 @@ export const es: typeof en = {
     running: "Analizando...",
     clearCache: "Borrar caché y reintentar",
     chooseCommander: "Elige un comandante en el panel de revisión antes de analizar.",
-    degraded: "El análisis degradado puede usar tierras, aceleradores y cartas en caché. Las cartas desconocidas no aportarán fuentes de maná ni objetivos hasta que Scryfall las resuelva.",
+    degraded:
+      "El análisis degradado puede usar tierras, aceleradores y cartas en caché. Las cartas desconocidas no aportarán fuentes de maná ni objetivos hasta que Scryfall las resuelva.",
     savedDecks: "Mazos guardados",
     saveDeck: "Guardar mazo",
     noSavedDeck: "Ningún mazo guardado seleccionado",
     loadDeck: "Cargar mazo",
     deleteDeck: "Eliminar mazo",
-    storageUnavailable: "El almacenamiento del navegador no está disponible. No se pudo guardar este mazo.",
+    storageUnavailable:
+      "El almacenamiento del navegador no está disponible. No se pudo guardar este mazo.",
     deckNameTooLong: "Los nombres de mazo deben tener {max} caracteres o menos.",
     assumptions: "Supuestos de Karsten",
     countTaplands: "Contar tierras giradas desde el turno 2",
@@ -185,7 +203,8 @@ export const es: typeof en = {
     continueDegraded: "o continuar en modo degradado.",
     dataReady: "Los datos de cartas están listos.",
     runFromImport: "Ejecutar análisis desde Importar",
-    degraded: "Este informe trata las cartas sin resolver como desconocidas. Sin resolver: {count}.",
+    degraded:
+      "Este informe trata las cartas sin resolver como desconocidas. Sin resolver: {count}.",
     runningSimulation: "Ejecutando simulación Montecarlo… {progress}%",
     targetsPassing: "Objetivos aprobados",
     aboveThreshold: "{rate}% por encima del umbral",
@@ -214,6 +233,31 @@ export const es: typeof en = {
     abandonConfirm: "¿Abandonar este mazo y borrar todos los datos importados?",
     clipboardUnavailable: "El portapapeles no está disponible en este navegador.",
   },
+  share: {
+    action: "Compartir",
+    title: "Compartir análisis",
+    subtitle:
+      "Crea un enlace con tu informe actual para que otras personas lo vean en modo solo lectura.",
+    generating: "Generando enlace compartido...",
+    linkField: "Enlace compartido",
+    copyLink: "Copiar enlace",
+    openLink: "Abrir enlace",
+    privacyNote:
+      "Los enlaces incluyen datos codificados del mazo y del informe para que sean portables. Compártelos solo con personas de confianza.",
+    copied: "Enlace compartido copiado.",
+    copyFailed: "No se pudo copiar el enlace en este navegador.",
+    unavailable: "Genera un informe antes de compartir.",
+    tooLarge: "Este análisis es demasiado grande para un enlace compartible.",
+    invalid: "Este enlace compartido no es válido o está dañado.",
+    expired: "Este enlace compartido ha caducado.",
+    readOnlyBanner: "Viendo resultados compartidos en modo solo lectura.",
+    importedFallback: "Mazo y ajustes cargados desde el enlace compartido.",
+    openImport: "Abrir flujo de importación",
+    shareCreatedAt: "Generado {date}",
+    shareExpiresAt: "Caduca {date}",
+    fallbackReady: "Cargar mazo + ajustes",
+    fallbackMissing: "No se incluyeron datos de mazo de respaldo.",
+  },
   settings: {
     title: "Ajustes",
     intro: "Configura el modo, el umbral de probabilidad y los supuestos sobre oponentes.",
@@ -226,7 +270,8 @@ export const es: typeof en = {
     orchard: "Exotic Orchard con peso ¾",
     fellwar: "Fellwar Stone con peso ½",
     podColours: "Colores conocidos de la mesa",
-    podDescription: "Selecciona los colores que sabes que juegan tus oponentes. Mejora las fuentes dependientes del rival.",
+    podDescription:
+      "Selecciona los colores que sabes que juegan tus oponentes. Mejora las fuentes dependientes del rival.",
     colours: { W: "Blanco", U: "Azul", B: "Negro", R: "Rojo", G: "Verde" },
     iterations: "Iteraciones de simulación",
     iterationsDescription: "Más iteraciones reducen el ruido de muestreo, pero tardan más.",
@@ -239,9 +284,11 @@ export const es: typeof en = {
     resetButton: "Restablecer valores",
     privacy: {
       title: "Datos locales",
-      disclosure: "Los mazos permanecen en este navegador. Los nombres y las imágenes se solicitan a Scryfall.",
+      disclosure:
+        "Los mazos permanecen en este navegador. Los nombres y las imágenes se solicitan a Scryfall.",
       clear: "Borrar todos los datos locales",
-      confirm: "¿Borrar mazos, ajustes, preferencias y datos de cartas en caché? Esta acción no se puede deshacer.",
+      confirm:
+        "¿Borrar mazos, ajustes, preferencias y datos de cartas en caché? Esta acción no se puede deshacer.",
     },
   },
 };
